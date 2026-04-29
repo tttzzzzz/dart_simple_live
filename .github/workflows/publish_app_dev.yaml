@@ -16,14 +16,14 @@ jobs:
 
     steps:
       # 签出代码
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: dev
 
       # APK签名设置
       - name: Download Android keystore
         id: android_keystore
-        uses: timheuer/base64-to-file@v1.2
+        uses: timheuer/base64-to-file@v1.2.4
         with:
           fileName: keystore.jks
           encodedString: ${{ secrets.KEYSTORE_BASE64 }}
@@ -35,7 +35,7 @@ jobs:
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> simple_live_app/android/key.properties
 
       # 设置JAVA环境
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: 'zulu'
           java-version: "17"
@@ -74,7 +74,7 @@ jobs:
 
       #上传Artifacts
       - name: Upload APK to Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: android
           path: |
@@ -85,7 +85,7 @@ jobs:
       # TV APK签名设置
       - name: Download Android TV keystore
         id: android_tv_keystore
-        uses: timheuer/base64-to-file@v1.2
+        uses: timheuer/base64-to-file@v1.2.4
         with:
           fileName: keystore_tv.jks
           encodedString: ${{ secrets.TV_KEYSTORE_BASE64 }}
@@ -103,7 +103,7 @@ jobs:
           flutter build apk --release --split-per-abi
       #上传TV APK至Artifacts
       - name: Upload TV APK to Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: android_tv
           path: |
@@ -129,7 +129,7 @@ jobs:
 
       # 上传IPA至Artifacts
       - name: Upload IPA to Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ios
           path: |
@@ -143,7 +143,7 @@ jobs:
       
       # 上传MAC至Artifacts
       - name: Upload MacOS to Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: mac
           path: |
@@ -159,7 +159,7 @@ jobs:
       contents: write
     steps:
       # 签出代码
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: dev
       # 设置Flutter环境
@@ -191,7 +191,7 @@ jobs:
           flutter_distributor package --platform linux --targets deb,zip --skip-clean
       # 上传Linux包至Artifacts
       - name: Upload Linux APP to Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: linux
           path: |
@@ -208,7 +208,7 @@ jobs:
       contents: write
     steps:
       # 签出代码
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: dev
       # 设置Flutter环境
@@ -233,7 +233,7 @@ jobs:
           flutter_distributor package --platform windows --targets msix,zip --skip-clean
       # 上传Windows至Artifacts
       - name: Upload Windows APP to Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: windows
           path: |
